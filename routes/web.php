@@ -35,8 +35,6 @@ Route::group(['middleware'=>['auth' , 'role:admin']], function () {
     Route::resource('dashboard/categories', CategoryController::class);
 });
 
-
-
 Route::group(['middleware'=>['auth' , 'role:admin']], function () {
     Route::resource('dashboard/products', ProductController::class);
 });
@@ -45,6 +43,9 @@ Route::group(['middleware'=>['auth' , 'role:admin']], function () {
     Route::resource('dashboard/branches', BranchController::class);
 });
 
+Route::group(['middleware'=>['auth' , 'role:admin']], function () {
+    Route::resource('dashboard/users', UserController::class);
+});
 
 Route::get('main/categories', 'CategoryController@MainCategories')->name('MainCategories');
 
@@ -61,12 +62,8 @@ Route::get('main/showBranch/{id}', 'BranchController@BranchShow')->name('BranchS
 
 Route::post('main/showProduct', 'OrderController@addToCart')->name('addToCart');
 
-Route::get('/cart', 'OrderController@confirm')->name('confirm');
+// Route::get('/cart', 'OrderController@confirm')->name('confirm');
 
 
 
 require __DIR__.'/auth.php';
-
-// Route::get('/', function () {
-//    return view('main.index');
-// })->withoutMiddleware([EnsureTokenIsValid::class]);
