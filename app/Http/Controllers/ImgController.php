@@ -36,8 +36,27 @@ class ImgController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $imgs = $request->file('imgs');
         
+        $imgData[] = '';
+        foreach($request->file('imgs') as $file)
+        {
+            $name = $file->getClientOriginalName();
+            $file->move(public_path().'/uploads/', $name);  
+            $imgData[] = $name;  
+        }
+
+        // dd($imgData);
+        foreach ($imgData as $img) {
+            $imgs = new Img([
+                'name' => $img,
+                'product_id' => $request->get('product_id')
+            ]);
+            $imgs->save();
+        }
+
+        return redirect()->route('products.index')->with('success','Product created successfully.');
+
     }
 
     /**
@@ -49,6 +68,7 @@ class ImgController extends Controller
     public function show(Img $img)
     {
         //
+        
     }
 
     /**
@@ -83,5 +103,9 @@ class ImgController extends Controller
     public function destroy(Img $img)
     {
         //
+        $img->delete();
+
+       return redirect()->route('products.index')
+                       ->with('success','branche deleted successfully');
     }
 }

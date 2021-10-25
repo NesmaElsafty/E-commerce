@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Img;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Translatable\HasTranslations;
+use Illuminate\Support\Facades\DB;
+
 
 
 class ProductController extends Controller
@@ -67,7 +70,7 @@ class ProductController extends Controller
             'name' => $request->get('name[]'),
             'price' => $request->get('price'),
             'active' => $request->get('active')  ? $request->get('active') : 0,
-            'image' => $request->get('image'),
+            'image' => $request->file('image'),
             'category_id' => $request->get('category_id')
         ]);
 
@@ -81,6 +84,8 @@ class ProductController extends Controller
             $destinationPath = 'db-assets/img/';
             $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
             // dd($profileImage);
+
+
             $image->move($destinationPath, $profileImage);
             $product['image'] = "$profileImage";
         }
@@ -93,7 +98,6 @@ class ProductController extends Controller
     }
 
     /**
-     * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -105,17 +109,21 @@ class ProductController extends Controller
         // dd($category);
         $data = $product->getTranslations();
         // dd($data);
-        return view('dashboard/products.show',compact('product' , 'data', 'category'));
+        $imgs = DB::table('imgs')->where('product_id', $product->id)->get();
+        // dd($imgs);
+        return view('dashboard/products.show',compact('product' , 'data', 'category', 'imgs'));
     }
 
     public function ProductShow(product $product)
     {
         //
-        $category = Category::find($product->category_id);
+        $category = Category::find($product->category_id); 
         // dd($category);
         $data = $product->getTranslations();
+        $imgs = DB::table('imgs')->where('product_id', $product->id)->get();
+
         // dd($data);
-        return view('main.showProduct',compact('product' , 'data', 'category'));
+        return view('main.showProduct',compact('product' , 'data', 'category', 'imgs'));
     }
 
     /**
@@ -124,6 +132,7 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function edit($id)
     {
         //

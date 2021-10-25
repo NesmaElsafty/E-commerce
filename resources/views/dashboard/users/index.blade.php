@@ -61,7 +61,7 @@
                         	</form>
                           </td>
                         </tr>
-                        @endif
+                       @endifs
                         @empty
                         <tr>
                         	<td>

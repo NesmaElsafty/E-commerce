@@ -39,8 +39,14 @@ Route::group(['middleware'=>['auth' , 'role:admin']], function () {
     Route::resource('dashboard/products', ProductController::class);
 });
 
+
 Route::group(['middleware'=>['auth' , 'role:admin']], function () {
-    Route::get('/imgs', 'ImgController@store')->name('storeImgs');
+    Route::post('/dashboard/products/show', 'ImgController@store')->name('storeImgs');
+});
+
+Route::group(['middleware'=>['auth' , 'role:admin']], function () {
+    Route::get
+    ('/dashboard/products/delete', 'ImgController@destroy')->name('deleteImg');
 });
 
 Route::group(['middleware'=>['auth' , 'role:admin']], function () {

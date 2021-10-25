@@ -9,7 +9,7 @@
 <div class="row">
     <div class="col-md-8">
         <div class="card-body">
-            <form action="{{ route('products.store') }}" method="POST" aria-label="{{ __('Upload') }}" >
+            <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data" aria-label="{{ __('Upload') }}" >
 
                 @csrf
 
