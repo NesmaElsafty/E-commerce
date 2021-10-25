@@ -1,5 +1,5 @@
 <?php
-
+ 
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -71,12 +71,23 @@ class ProductController extends Controller
             'category_id' => $request->get('category_id')
         ]);
 
-        $product->name = ['en' => $request->get('name_en'), 'ar' => $request->get('name_ar')];
+        // dd($request->file('image'));
 
-        // dd($request);
+
+        $product->name = ['en' => $request->get('name_en'), 'ar' => $request->get('name_ar')];
+  
+        if ($image = $request->file('image')) {
+            
+            $destinationPath = 'db-assets/img/';
+            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            // dd($profileImage);
+            $image->move($destinationPath, $profileImage);
+            $product['image'] = "$profileImage";
+        }
+
         $product->save();
 
-        // product::create($request->all());
+
 
         return redirect()->route('products.index')->with('success','Product created successfully.');
     }

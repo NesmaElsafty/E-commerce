@@ -13,7 +13,7 @@
             @forelse ($categories as $category)
             <div class="col-sm-2">
             <a href="{{ route('CategoryShow',$category->id) }}">
-              <img src="{{ asset('assets/img/faces/avatar.jpg') }}" alt="Rounded Image" class="rounded img-fluid">
+              <img src="{{ asset('./db-assets/img/'.$category->image) }}" alt="Rounded Image" class="rounded img-fluid">
               <h4>{{$category->name}}</h4>
             </a>
 

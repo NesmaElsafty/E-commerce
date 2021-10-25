@@ -13,6 +13,7 @@
 
     <!--  -->
       <div class="card card-profile">
+      <img class="card-img-top" src="{{ asset('db-assets/img/'.$category->image) }}" alt="Card image cap">
         
     <div class="card-body">
 
@@ -25,7 +26,7 @@
         {{ $data['name']['en'] }}
       </p>
 
-      <p class="card-description">
+      <p class="card-description"> 
         <strong>Image: </strong>
         {{ $category->image }}
       </p>
@@ -34,6 +35,11 @@
           {{ $category->active }}
       </p>
     <a href="{{ route('categories.edit',$category->id) }}" class="btn btn-primary btn-round">Edit</a>
+    <form style="display:inline-block;" action="{{ route('categories.destroy',$category->id) }}" method="POST">
+        @csrf
+        @method('DELETE')
+          <button class="btn btn-primary btn-round">Delete</button>
+    </form>
 </div>
 </div>
   

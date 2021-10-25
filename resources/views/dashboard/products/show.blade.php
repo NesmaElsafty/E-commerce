@@ -5,51 +5,45 @@
 
 @section ('content')
 
-<!-- + div class row -->
-<div class="row">
-    <div class="col-md-4">
-        <div class="card-avatar">
-    </div>
 
-    <!--  -->
-      <div class="card card-profile">
-        
-    <div class="card-body">
+<!-- Start Card -->
+    <form action="{{ route('storeImgs') }}" method="POST" enctype="multipart/form-data">
+    @csrf
+      <div class="input-file-container">  
+        <input type="hidden" value="{{$product->id}}" name="product_id"/>
+        <input class="input-file" id="my-file" type="file" name="imgs[]" multiple>
+        <label tabindex="0" for="my-file" class="input-file-trigger">Upload Images...</label>
+      </div>
+      <p class="file-return"></p>
+    </form>
 
-      <p class="card-description">
-        <strong>Product Ar Name: </strong>
-        {{ $data['name']['ar'] }}
-      </p>
-      <p class="card-description">
-        <strong>Product En Name: </strong>
-        {{ $data['name']['en'] }}
-      </p>
+<!-- Add Imgs -->
 
-      <p class="card-description">
-        <strong>Price: </strong>
-        {{ $product->price }}
-      </p>
+<!-- End Add Imgs -->
 
-      <p class="card-description">
-        <strong>Image: </strong>
-        {{ $product->image }}
-      </p>
-      <p class="card-description">
-          <strong>Active: </strong>
-          {{ $product->active }}
-      </p> 
-      <p class="card-description">
-      <strong>Category Name:</strong>
-
-        <p>{{$category->name == NULL ?  'No Category Selected' : $category->name}}</p>
-      </p>
-
+<div class="card" style="width: 20rem; text-align:;" >
+  <img class="card-img-top" src="{{ asset('db-assets/img/'.$product->image) }}" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">{{ $data['name']['ar'] }}</h5>
+    <h5 class="card-title">{{ $data['name']['en'] }}</h5>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">{{ $product->price }} L.E</li>
+    <li class="list-group-item">{{ $product->active == 1 ? 'Activated' : 'Not Activated'}}</li>
+    <li class="list-group-item">{{$category->name == NULL ?  'No Category Selected' : $category->name}}</li>
+  </ul>
+  <div class="card-body">
     <a href="{{ route('products.edit',$product->id) }}" class="btn btn-primary btn-round">Edit</a>
+
+    <form style="display:inline-block;" action="{{ route('products.destroy',$product->id) }}" method="POST">
+        @csrf
+        @method('DELETE') 
+        <button class="btn btn-primary btn-round">Delete</button>
+    </form>
+    
+  </div>
 </div>
-</div>
-  
-</div>
-</div>
-<!-- End take -->
+
+<!-- End Card -->
 
 @endsection

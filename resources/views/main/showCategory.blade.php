@@ -11,9 +11,9 @@
           <div class="row">
           @forelse($products as $product)
 
-            <div class="col-sm-2">
+            <div class="col-sm-3">
               <a href="{{ route('ProductShow',$product->id) }}">
-                <img src="{{ asset('assets/img/faces/avatar.jpg') }}" alt="Rounded Image" class="rounded img-fluid">
+                <img src="{{ asset('db-assets/img/'.$product->image) }}" alt="Rounded Image" class="rounded img-fluid">
             <?php $proName = json_decode($product->name); ?>
             <div class="row">
                 <h5>{{$proName->en}}</h5>

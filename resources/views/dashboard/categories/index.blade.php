@@ -51,7 +51,7 @@
                             {{$category->active}}
                           </td>
                           <td>
-                            {{$category->Image}}
+                            {{$category->image}}
                           </td>
                           
                           <td class="text-primary" style="text-align:center;">
@@ -62,10 +62,10 @@
                             <button class="btn btn-primary">Edit</button>
                             </a>
                             <form style="display:inline-block;" action="{{ route('categories.destroy',$category->id) }}" method="POST">
-			                    @csrf
-			                    @method('DELETE')
-                            	<button class="btn btn-primary">Delete</button>
-                        	</form>
+                              @csrf
+                              @method('DELETE')
+                                  <button class="btn btn-primary">Delete</button>
+                            </form>
                           </td>
                         </tr>
                         @empty

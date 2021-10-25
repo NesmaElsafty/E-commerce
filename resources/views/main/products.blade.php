@@ -13,7 +13,7 @@
             @forelse($products as $product)
             <div class="col-sm-2">
             <a href="{{ route('ProductShow',$product->id) }}">
-              <img src="{{ asset('assets/img/faces/avatar.jpg') }}" alt="Rounded Image" class="rounded img-fluid">
+              <img src="{{ asset('db-assets/img/'.$product->image) }}" alt="Rounded Image" class="rounded img-fluid">
               <div class="row">
               <h4 style="font-family: bold;">{{$product->name}}</h4>
               <p style="font-family: bold;">{{$product->price}}L.E</p>
